@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        app
+    </title>
+    <link rel="stylesheet" href="/markdowncss/markdown.css">
+    <!-- <script src="/font/iconfont.js" defer></script> -->
+<link href="/asset/app/app.8f6dec66c9c5b3a71274.css" rel="stylesheet"></head>
+<style>
+    .ejs_white_100 {
+        height: 100px;
+    }
+
+    .ejs_loading {
+        width: 80px;
+        height: 40px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+
+    .ejs_loading span {
+        display: inline-block;
+        width: 8px;
+        height: 100%;
+        border-radius: 4px;
+        background: lightgreen;
+        animation: load 1s ease infinite;
+    }
+
+    @keyframes load {
+
+        0%,
+        100% {
+            height: 40px;
+            background: lightgreen;
+        }
+
+        50% {
+            height: 70px;
+            margin: -15px 0;
+            background: lightblue;
+        }
+    }
+
+    .ejs_loading span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .ejs_loading span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    .ejs_loading span:nth-child(4) {
+        animation-delay: 0.6s;
+    }
+
+    .ejs_loading span:nth-child(5) {
+        animation-delay: 0.8s;
+    }
+
+    .ejs_white_50 {
+        height: 50px;
+    }
+
+    .ejs_text {
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="root" class="markdown-section">
+        <div class="ejs_white_100"></div>
+        <div class="ejs_loading">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="ejs_white_50"></div>
+        <div class="ejs_text">首次加载大概需要40s，请耐心等待</div>
+    </div>
+<script type="text/javascript" src="/asset/react/react.a61e8f16651210910ca7.js"></script><script type="text/javascript" src="/asset/app/app.61dbfcfb94b175e2525f.js"></script></body>
+
+</html>
