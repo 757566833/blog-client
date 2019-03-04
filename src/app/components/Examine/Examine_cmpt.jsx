@@ -24,7 +24,7 @@ class Examine extends React.Component {
         const show = sessionStorage.text;
         return (
             <div className='Examine flex'>
-                <div className='markdown-section' dangerouslySetInnerHTML={{ __html: marked(show) }}></div> 
+                {show ? <div className='markdown-section' dangerouslySetInnerHTML={{ __html: marked(show) }}></div> : ''}
             </div>
         );
     }

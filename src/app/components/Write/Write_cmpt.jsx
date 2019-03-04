@@ -17,6 +17,8 @@ class Write extends React.Component {
     }
     state = {
 
+        author: '',
+        createdAt: '',
 
         type: [],
         title: '',
@@ -33,6 +35,9 @@ class Write extends React.Component {
     }
     componentDidMount = () => {
         console.log(this.props.match.params._id);
+        if (this.props.match.params._id) {
+            Control.article({ _id: this.props.match.params._id });
+        }
         Control.getTabs();
         document.addEventListener('paste', this.paste);
     }
@@ -82,8 +87,8 @@ class Write extends React.Component {
                             console.log(this);
 
                             // 最大尺寸限制，可通过设置宽高来实现图片压缩程度
-                            var maxWidth = 300,
-                                maxHeight = 300;
+                            var maxWidth = 1200,
+                                maxHeight = 800;
                             // 目标尺寸
                             var targetWidth = originWidth,
                                 targetHeight = originHeight;
@@ -155,18 +160,16 @@ class Write extends React.Component {
     }
     setTabs = (tabs) => {
         if (this.isMount) {
-            // let tabarr = [];
-            // for (const iterator of tabs) {
-            //     tabarr.push(iterator.tab);
-            // }
-            // this.setState({
-            //     tabs: `${tabarr}`,
-            //     current: tabs[0].tab,
-            // });
             this.setState({
                 tabs: tabs
             });
         }
+    }
+    setResult = (result) => {
+        result.type = result.type.split(',');
+        this.setState({
+            ...result,
+        });
     }
     submit = () => {
         const {
@@ -178,6 +181,18 @@ class Write extends React.Component {
         const text = sessionStorage.text;
         console.log(type, title, subTitle, summary, text);
         Control.addArticle({ type, title, subTitle, summary, text });
+    }
+    edit = () => {
+        const {
+            type,
+            title,
+            subTitle,
+            summary,
+        } = this.state;
+        const text = sessionStorage.text;
+        console.log(type, title, subTitle, summary, text);
+        const _id = this.props.match.params._id;
+        Control.updateArticle({ json: { type, title, subTitle, summary, text }, _id });
     }
     setTitle = (e) => {
         const title = e.target.value.trim();
@@ -212,6 +227,9 @@ class Write extends React.Component {
     saveSuccess = (msg) => {
         message.info(msg);
     }
+    updateSuccess= (msg) => {
+        message.info(msg);
+    }
     interfaceError = (msg) => {
         message.error(`接口错误，错误信息${msg}`);
     }
@@ -227,6 +245,7 @@ class Write extends React.Component {
             text,
             tabs
         } = this.state;
+        const _id = this.props.match.params._id;
         return (
             <div className='Write flex'>
                 <div className='Write'>
@@ -238,7 +257,7 @@ class Write extends React.Component {
                             mode="multiple"
                         >
                             {tabs.map((item) => {
-                                return(
+                                return (
                                     <Option key={item.tab}>{item.tab}</Option>
                                 );
                             })}
@@ -251,7 +270,10 @@ class Write extends React.Component {
                     <div>
                         <a href='/ExamineView' target='_blank'>带图片预览</a>
                     </div>
-                    <Button onClick={this.submit}>提交</Button>
+                    {
+                        _id ? <Button onClick={this.edit}>提交修改</Button> : <Button onClick={this.submit}>提交创建</Button>
+                    }
+
                 </div>
                 <div>
                     <div className='markdown-section' dangerouslySetInnerHTML={{ __html: marked(text) }}></div>

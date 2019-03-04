@@ -11,16 +11,14 @@ class Article extends React.Component {
         this.isMount = true;
     }
     state = {
-        result: {
-            author: '',
-            createdAt: '',
-            subTitle: '',
-            summary: '',
-            text: '',
-            title: '',
-            type: '',
-            _id: '',
-        }
+        author: '',
+        createdAt: '',
+        subTitle: '',
+        summary: '',
+        text: '',
+        title: '',
+        type: '',
+        _id: '',
     }
     componentDidMount = () => {
         Control.article({ _id: this.props.match.params._id });
@@ -30,7 +28,7 @@ class Article extends React.Component {
     }
     setResult = (result) => {
         this.setState({
-            result: result
+            ...result
         });
     }
     interfaceError = (msg) => {
@@ -40,21 +38,29 @@ class Article extends React.Component {
         alert(`网络错误${code}`);
     }
     render() {
-        const { result } = this.state;
+        const {
+
+            author,
+            createdAt,
+            text,
+            title,
+            type,
+        } = this.state;
+        const _id = this.props.match.params._id;
         return (
             <div className='Article flex'>
                 <div className='content markdown-section'>
                     <div>
-                        <div dangerouslySetInnerHTML={{ __html: marked(result.title) }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(title) }}></div>
                     </div>
                     <div className='flex'>
-                        <div dangerouslySetInnerHTML={{ __html: marked(result.author) }}></div>
-                        <div dangerouslySetInnerHTML={{ __html: marked(result.createdAt) }}></div>
-                        <div dangerouslySetInnerHTML={{ __html: marked(result.type) }}></div>
-                        <div>{localStorage.user==result.author?<div>修改</div>:''}</div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(author) }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(createdAt) }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(type) }}></div>
+                        <div>{localStorage.user == author ? <div onClick={()=>global.open(`/WriteView/${_id}`)}>修改</div> : ''}</div>
                     </div>
                     <div>
-                        <div dangerouslySetInnerHTML={{ __html: marked(result.text) }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: marked(text) }}></div>
                     </div>
                 </div>
 
