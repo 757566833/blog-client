@@ -103,7 +103,7 @@ class ArticleList extends React.Component {
                     <List
                         itemLayout="vertical"
                         size="large"
-                        loadMore={<div>loadmore</div>}
+                        // loadMore={<div>loadmore</div>}
                         dataSource={articleList}
                         loading={isLoading}
                         renderItem={(item, index) => (

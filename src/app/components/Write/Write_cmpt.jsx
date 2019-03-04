@@ -32,6 +32,7 @@ class Write extends React.Component {
         tabs: []
     }
     componentDidMount = () => {
+        console.log(this.props.match.params._id);
         Control.getTabs();
         document.addEventListener('paste', this.paste);
     }

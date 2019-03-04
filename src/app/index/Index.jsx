@@ -21,7 +21,7 @@ class AppRouter extends React.Component {
                 <Route exact path='/' component={IndexView} />
                 <Route path='/IndexView' component={IndexView} />
                 <Route path='/ArticleView/:_id' component={ArticleView} />
-                <Route path='/WriteView' component={WriteView} />
+                <Route path='/WriteView/:_id?' component={WriteView} />
                 <Route path='/ExamineView' component={ExamineView} />
                 <Route path='/SettingView' component={SettingView} />
 
