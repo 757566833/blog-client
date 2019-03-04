@@ -7,7 +7,7 @@ export default class Control {
         if (typeof result !== 'number') {
             let data = eval('(' + result + ')');
             if (data.code == 0) {
-                HeaderRef.setToken(data.token);
+                HeaderRef.setToken(data.token,json.user,data.data);
             } else {
                 HeaderRef.interfaceError(data.msg);
             }
@@ -19,8 +19,9 @@ export default class Control {
         const result = await loginModel(json);
         if (typeof result !== 'number') {
             let data = eval('(' + result + ')');
+            console.log(data);
             if (data.code == 0) {
-                HeaderRef.setToken(data.token,json.user);
+                HeaderRef.setToken(data.token,json.user,data.data);
             } else {
                 HeaderRef.interfaceError(data.msg);
             }

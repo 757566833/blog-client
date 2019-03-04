@@ -21,7 +21,7 @@ export default class IndexView extends React.Component {
     }
     render() {
         return (
-            <div style={{ width: document.documentElement.clientWidth, height: document.documentElement.clientHeight }}>
+            <div>
                 <Header />
                 <ArticleList />
             </div>

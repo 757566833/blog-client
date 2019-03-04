@@ -117,7 +117,7 @@ class ArticleList extends React.Component {
                                 <List.Item.Meta
                                     // avatar={<Avatar src={item.avatar} />}
                                     title={<a href={item.href}>{item.title}</a>}
-                                    description={item.subTitle}
+                                    description={`作者：${item.author}    ${item.updateAt?`更新于${item.updateAt}`:`创作于${item.createdAt}`}`}
                                 />
                                 {item.summary}
                             </List.Item>

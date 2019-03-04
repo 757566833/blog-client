@@ -18,7 +18,7 @@ class Write extends React.Component {
     state = {
 
 
-        type: 'javascript',
+        type: [],
         title: '',
         subTitle: '',
         summary: '',
@@ -28,9 +28,11 @@ class Write extends React.Component {
 
         imageIndex: 1,
         imageUrlJosn: {},
+
+        tabs: []
     }
     componentDidMount = () => {
-
+        Control.getTabs();
         document.addEventListener('paste', this.paste);
     }
     componentWillUnmount = () => {
@@ -150,6 +152,21 @@ class Write extends React.Component {
         });
         sessionStorage.text = str;
     }
+    setTabs = (tabs) => {
+        if (this.isMount) {
+            // let tabarr = [];
+            // for (const iterator of tabs) {
+            //     tabarr.push(iterator.tab);
+            // }
+            // this.setState({
+            //     tabs: `${tabarr}`,
+            //     current: tabs[0].tab,
+            // });
+            this.setState({
+                tabs: tabs
+            });
+        }
+    }
     submit = () => {
         const {
             type,
@@ -186,6 +203,7 @@ class Write extends React.Component {
         }
     }
     selectChange = (type) => {
+        console.log(type);
         this.setState({
             type: type
         });
@@ -206,15 +224,23 @@ class Write extends React.Component {
             subTitle,
             summary,
             text,
+            tabs
         } = this.state;
         return (
             <div className='Write flex'>
                 <div className='Write'>
                     <div>
-                        <Select value={type} style={{ width: 120 }} onChange={this.selectChange}>
-                            <Option value="javascript">javascript</Option>
-                            <Option value="nodejs">nodejs</Option>
-                            <Option value="mongodb">mongodb</Option>
+                        <Select
+                            value={type}
+                            style={{ width: '100%' }}
+                            onChange={this.selectChange}
+                            mode="multiple"
+                        >
+                            {tabs.map((item) => {
+                                return(
+                                    <Option key={item.tab}>{item.tab}</Option>
+                                );
+                            })}
                         </Select>
                     </div>
                     <Input addonBefore='标题' value={title} onChange={this.setTitle} />

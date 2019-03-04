@@ -100,7 +100,7 @@ class Header extends React.Component {
         });
     }
 
-    setToken = (token, user) => {
+    setToken = (token, user, admin) => {
         localStorage.token = token;
         this.props.setIsLogin(true);
         this.setState({
@@ -111,6 +111,11 @@ class Header extends React.Component {
             password: '',
         });
         localStorage.user = user;
+        console.log(admin);
+        if (admin.isAdmin) {
+            localStorage.isAdmin = admin.isAdmin;
+        }
+
     }
     register = () => {
         const {
@@ -168,6 +173,7 @@ class Header extends React.Component {
             password,
             inputVcode
         } = this.state;
+        const isAdmin = localStorage.isAdmin;
         return (
             <div className='Header flex'>
                 <div className='content flex'>
@@ -236,9 +242,14 @@ class Header extends React.Component {
                             <Button type='primary' shape='round' onClick={() => { window.open('/WriteView'); }}>
                                 写文章
                             </Button>
-                            <Button type='primary' shape='round' onClick={() => { window.open('/SettingView'); }}>
-                                设置
-                            </Button>
+                            {isAdmin
+                                ?
+                                <Button type='primary' shape='round' onClick={() => { window.open('/SettingView'); }}>
+                                    设置
+                                </Button>
+                                : ''
+                            }
+
                             <Button shape='round' onClick={this.logout}>退出</Button>
                         </div>
                         :
